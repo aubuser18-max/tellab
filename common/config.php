@@ -1,24 +1,24 @@
 <?php
-// common/config.php - Complete and correct version
+// common/config.php - Railway MySQL version with correct credentials
 
-// Database configuration
-define('DB_HOST', 'sql100.infinityfree.com');
-define('DB_USER', 'if0_41412895');
-define('DB_PASS', 'XEmhBNTfI4xPR9');
-define('DB_NAME', 'if0_41412895_tel_project');
+// Database configuration (from Railway connection string)
+define('DB_HOST', 'hopper.proxy.rlwy.net');
+define('DB_PORT', '39171');                // Railway MySQL port
+define('DB_USER', 'root');
+define('DB_PASS', 'NTeymqHZArsWVLXmWtrOoqaqtmbWzLvU');  // Railway password
+define('DB_NAME', 'railway');               // Railway default database name
 
-// Create connection
+// Create connection (with port)
 function getDB() {
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
     if ($conn->connect_error) {
-        // In production, you might want to log this instead of dying
         die("Database connection failed: " . $conn->connect_error);
     }
     $conn->set_charset("utf8mb4");
     return $conn;
 }
 
-// Security script (no session_start here!)
+// Security script (unchanged)
 function getSecurityScript() {
     $is_admin = strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false;
     if ($is_admin) {
